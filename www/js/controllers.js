@@ -1,4 +1,6 @@
-var answersetforward=[];
+var answersetforward = [];
+var questionset = [];
+
 angular.module('controllers', [])
 
 .controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
@@ -110,32 +112,52 @@ angular.module('controllers', [])
 
 
     })
-    .controller('questionsCtrl', function ($scope,$location) {
-    $scope.questions=[];
-    $scope.answers={};
-    /*$scope.optiona=[];
-    $scope.optionb=[];
-    $scope.optionc=[];
-    $scope.optiond=[];
-    $scope.rightanswer=[];*/
-    //INSERTING QUESTION ANSWER IN ARRAY
-    db.transaction(function(tx){
-    tx.executeSql('SELECT * FROM `QUESTIONS`',[],function(tx,results){
-    for(var j=0;j<results.rows.length;j++){
-    $scope.questions.push(results.rows.item(j));
-    };
-        console.log($scope.questions);
-    },null);
-    });
+    .controller('questionsCtrl', function ($scope, $location) {
+        $scope.questions = [];
+        $scope.answers = {};
+        db.transaction(function (tx) {
+            tx.executeSql('SELECT * FROM `QUESTIONS`', [], function (tx, results) {
+                for (var j = 0; j < results.rows.length; j++) {
+                    $scope.questions.push(results.rows.item(j));
+                };
+                questionset = $scope.questions;
+                console.log($scope.questions);
+            }, null);
+        });
 
-    $scope.finishquiz=function(){
-        answersetforward=$scope.answers;
-        $location.path('app/result');
-       
-    console.log( $scope.answers);
-    }
+        $scope.finishquiz = function () {
+            answersetforward = $scope.answers;
+            $location.path('app/result');
+
+            console.log($scope.answers);
+        }
     })
 
 .controller('answersCtrl', function ($scope, $location) {})
-    .controller('resultCtrl', function ($scope, $location) {})
+    .controller('resultCtrl', function ($scope, $location) {
+        //COUNTERS
+        $scope.right = 0;
+        $scope.wrong = 0;
+        $scope.notattempted = 0;
+
+        //QUESTION-ANSWER CORRECTION
+        for (var i = 0; i < questionset.length; i++) {
+            if (answersetforward[i]) {
+                if (answersetforward[i] == questionset[i].right_answer) {
+                    $scope.right += 1;
+                } else {
+                    $scope.wrong += 1;;
+                };
+            } else {
+                $scope.notattempted += 1;
+            }
+        };
+    
+console.log($scope.right);
+console.log($scope.wrong);
+console.log( $scope.notattempted);
+
+
+
+ })
     .controller('recordsCtrl', function ($scope, $location) {});
