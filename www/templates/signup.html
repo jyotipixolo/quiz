@@ -1,0 +1,37 @@
+<ion-view view-title="Sign-Up">
+    <ion-content>
+        <h1>Sign-up</h1>
+        <div>
+            <input type="text" placeholder="Name" ng-model="user.name" class="inputfield">
+            <div ng-if="userexist.length>0">
+                <br>{{userexist}}</div>
+            </br>
+            <input type="radio" ng-model="user.gender" value="Female" checked>Female
+            <input type="radio" ng-model="user.gender" value="Male" checked>Male
+            <div ng-if="genderempty.length>0">
+                <br>{{genderempty}}</div>
+            <br>
+            <br>
+            <input type="email" placeholder="EmailId" ng-model="user.emailid" class="inputfield">
+            <div ng-if="emailidempty.length>0">
+                <br>{{emailidempty}}</div>
+            <br>
+            <input type="password" placeholder="Password" ng-model="user.password" class="inputfield">
+            <div ng-if="passwordempty.length>0">
+                <br>{{passwordempty}}</div>
+            <br>
+            <select ng-model="user.question">
+                <option ng-repeat="j in secretquestions">{{j.questions}}</select>
+            <div ng-if="questionempty.length>0">
+                <br>{{questionempty}}</div>
+            <br>
+            <br>
+            <input type="text" placeholder="Answer" ng-model="user.answer" class="inputfield">
+            <div ng-if="answerempty.length>0">
+                <br>{{answerempty}}</div>
+            <br>
+            <button ng-click="signin()" class="button button-block button-positive">Sign In</button>
+
+        </div>
+    </ion-content>
+</ion-view>

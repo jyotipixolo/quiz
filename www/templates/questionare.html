@@ -1,0 +1,20 @@
+<ion-view view-title="Questionare">
+    <ion-content>
+        <h1>Questions</h1>
+        <ion-list>
+            <ion-item ng-repeat="content in questions">{{content.que_id}}]{{content.questions}}
+                <br>
+                <input type="radio" value="{{content.option_a}}" ng-model="answers[$index]">{{content.option_a}}
+                <br>
+                <input type="radio" value="{{content.option_b}}" ng-model="answers[$index]">{{content.option_b}}
+                <br>
+                <input type="radio" value="{{content.option_c}}" ng-model="answers[$index]">{{content.option_c}}
+                <br>
+                <input type="radio" value="{{content.option_d}}" ng-model="answers[$index]">{{content.option_d}}
+                <br>
+                
+            </ion-item>
+        </ion-list>
+        <button class="button button-block button-positive" ng-click="finishquiz()">Submit</button>
+    </ion-content>
+</ion-view>
