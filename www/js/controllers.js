@@ -152,12 +152,12 @@ angular.module('controllers', [])
                 $scope.notattempted += 1;
             }
         };
-    
-console.log($scope.right);
-console.log($scope.wrong);
-console.log( $scope.notattempted);
+
+        console.log($scope.right);
+        console.log($scope.wrong);
+        console.log($scope.notattempted);
 
 
 
- })
+    })
     .controller('recordsCtrl', function ($scope, $location) {});
