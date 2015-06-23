@@ -124,9 +124,12 @@ angular.module('controllers', [])
         $scope.questions = [];
         $scope.answers = {};
         $scope.questionparts = [];
-    $scope.nextbutton=true;
-    var check=1;
+        $scope.nextbutton = true;
+        var check = 1;
         var next = 5;
+    var decrementnext ;
+    var decrementprevious;
+    var previous;
         db.transaction(function (tx) {
             tx.executeSql('SELECT * FROM `QUESTIONS`', [], function (tx, results) {
                 for (var j = 0; j < results.rows.length; j++) {
@@ -148,34 +151,52 @@ angular.module('controllers', [])
         //FUNCTION FOR CALLING THE QUESTIONS IN SETS
 
         $scope.changequestionset = function (status) {
-        
             $scope.previousbutton = true;
             $scope.questionparts = [];
             if (status == 'next') {
-                console.log(check);
-                 check+=1;
-                for (next = next; $scope.questionparts.length < 5; next++) {
-                    $scope.questionparts.push($scope.questions[next]);
-                };
-              
+                decrementprevious=true;
+                //cHANGING QUESTION CORRECTLY ON CLICK OF NEXT BUTTON
+                if(!decrementnext){
+                    
+                    for (next = next; $scope.questionparts.length < 5; next++) {
+                        $scope.questionparts.push($scope.questions[next]);
+                    };
+                }else{
             
-            } else if (status == 'previous') {
-                next=next-5;
-                console.log(check);
-                console.log(next);
-                for (var previous =next ; $scope.questionparts.length < 5; previous++) {
-                    $scope.questionparts.push($scope.questions[previous]);
+                for (next = previous; $scope.questionparts.length < 5; next++) {
+                        $scope.questionparts.push($scope.questions[next]);
+                    };
+                    decrementnext=false;
                 };
-                check-=1;
+                check += 1;
+
+            } else if (status == 'previous') {
+               decrementnext=true;
+                if(!decrementprevious)
+                {
+                     next = next - 5;
+                for (previous = next; $scope.questionparts.length < 5; previous++) {
+                    $scope.questionparts.push($scope.questions[previous]);
+
+                };}else{
+                 next = next - 10;
+                     for (previous = next; $scope.questionparts.length < 5; previous++) {
+                    $scope.questionparts.push($scope.questions[previous]);
+decrementprevious=false;
+                };
+                
+                };
+
+                check -= 1;
             }
             console.log($scope.questionparts);
-           if(check>9){
+            if (check > 9) {
                 console.log(check);
-            $scope.nextbutton=false;
-                $scope.submitbutton=true;
-           }else if(check<10){
-            $scope.nextbutton=true;
-           };
+                $scope.nextbutton = false;
+                $scope.submitbutton = true;
+            } else if (check < 10) {
+                $scope.nextbutton = true;
+            };
         };
 
         $scope.finishquiz = function () {
