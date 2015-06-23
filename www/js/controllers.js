@@ -171,6 +171,10 @@ angular.module('controllers', [])
                 check += 1;
 
             } else if (status == 'previous') {
+                console.log(check);
+                if(check<3){
+                $scope.previousbutton=false;
+                };
                decrementnext=true;
                 if(!decrementprevious)
                 {
@@ -196,6 +200,7 @@ decrementprevious=false;
                 $scope.submitbutton = true;
             } else if (check < 10) {
                 $scope.nextbutton = true;
+                $scope.submitbutton = false;
             };
         };
 
