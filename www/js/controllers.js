@@ -1,4 +1,5 @@
 var answersetforward = [];
+//ALL VALUES OF TABLE ARE PRESENT
 var questionset = [];
 
 angular.module('controllers', [])
@@ -11,6 +12,13 @@ angular.module('controllers', [])
         // listen for the $ionicView.enter event:
         //$scope.$on('$ionicView.enter', function(e) {
         //});
+    })
+    .controller('homeCtrl', function ($scope, $ionicModal, $location) {
+        $scope.logout = function () {
+            $.jStorage.set("user", null);
+            $location.path('app/login');
+        };
+
     })
     .controller('loginCtrl', function ($scope, $timeout, $location) {
         $scope.logindata = {};
@@ -91,6 +99,7 @@ angular.module('controllers', [])
 
 
                             var insert = 'INSERT INTO USERS(username ,gender ,emailid ,password ,secret_que ,answer ) VALUES("' + $scope.user.name + '","' + $scope.user.gender + '","' + $scope.user.emailid + '","' + $scope.user.password + '","' + $scope.user.question + '","' + $scope.user.answer + '")';
+                            //FUNCTION FOR INSERTING DATA IN DB
                             signup(insert);
                         };
 
@@ -100,7 +109,6 @@ angular.module('controllers', [])
             }
         };
         var signup = function (insertdata) {
-
             db.transaction(function (tx) {
                 //INSERT DATA INTO DATABASE
                 tx.executeSql(insertdata, [], function (tx, results) {
@@ -115,15 +123,60 @@ angular.module('controllers', [])
     .controller('questionsCtrl', function ($scope, $location) {
         $scope.questions = [];
         $scope.answers = {};
+        $scope.questionparts = [];
+    $scope.nextbutton=true;
+    var check=1;
+        var next = 5;
         db.transaction(function (tx) {
             tx.executeSql('SELECT * FROM `QUESTIONS`', [], function (tx, results) {
                 for (var j = 0; j < results.rows.length; j++) {
                     $scope.questions.push(results.rows.item(j));
+                    if (j <= 4) {
+                        $scope.questionparts.push(results.rows.item(j));
+                    }
+
                 };
                 questionset = $scope.questions;
                 console.log($scope.questions);
             }, null);
         });
+
+
+
+
+
+        //FUNCTION FOR CALLING THE QUESTIONS IN SETS
+
+        $scope.changequestionset = function (status) {
+        
+            $scope.previousbutton = true;
+            $scope.questionparts = [];
+            if (status == 'next') {
+                console.log(check);
+                 check+=1;
+                for (next = next; $scope.questionparts.length < 5; next++) {
+                    $scope.questionparts.push($scope.questions[next]);
+                };
+              
+            
+            } else if (status == 'previous') {
+                next=next-5;
+                console.log(check);
+                console.log(next);
+                for (var previous =next ; $scope.questionparts.length < 5; previous++) {
+                    $scope.questionparts.push($scope.questions[previous]);
+                };
+                check-=1;
+            }
+            console.log($scope.questionparts);
+           if(check>9){
+                console.log(check);
+            $scope.nextbutton=false;
+                $scope.submitbutton=true;
+           }else if(check<10){
+            $scope.nextbutton=true;
+           };
+        };
 
         $scope.finishquiz = function () {
             answersetforward = $scope.answers;
@@ -133,31 +186,71 @@ angular.module('controllers', [])
         }
     })
 
-.controller('answersCtrl', function ($scope, $location) {})
+.controller('answersCtrl', function ($scope, $location) {
+
+        $scope.checkanswersquestions = [];
+        $scope.checkanswersquestions = questionset;
+    })
     .controller('resultCtrl', function ($scope, $location) {
         //COUNTERS
         $scope.right = 0;
         $scope.wrong = 0;
         $scope.notattempted = 0;
-
+        console.log(answersetforward);
         //QUESTION-ANSWER CORRECTION
-        for (var i = 0; i < questionset.length; i++) {
-            if (answersetforward[i]) {
-                if (answersetforward[i] == questionset[i].right_answer) {
+        for (var i = 0, k = 1; i < questionset.length; k++, i++) {
+            if (answersetforward[k]) {
+                if (answersetforward[k] == questionset[i].right_answer) {
+                    console.log(answersetforward[k]);
+                    console.log(questionset[i].right_answer);
                     $scope.right += 1;
+                    console.log("right");
                 } else {
+                    console.log(answersetforward[k]);
+                    console.log(questionset[i].right_answer);
                     $scope.wrong += 1;;
                 };
             } else {
                 $scope.notattempted += 1;
             }
+
         };
 
-        console.log($scope.right);
-        console.log($scope.wrong);
-        console.log($scope.notattempted);
+        $scope.rightpercent = 3.6 * Math.round(($scope.right * 100) / 50);
+        //TAKING VALUES FROM JSTORAGE FOR RESULT PAGE
+        $scope.userdata = $.jStorage.get("user");
+        db.transaction(function (tx) {
+            tx.executeSql('INSERT INTO RECORDS(user_id ,right_answers ,wrong_answers ,not_attempted ,total_question) VALUES(' + $scope.userdata.user_id + ',' + $scope.right + ',' + $scope.wrong + ',' + $scope.notattempted + ',' + questionset.length + ')', [], function (tx, results) {
+                console.log("ADDED");
+            }, null);
+        });
 
 
 
     })
-    .controller('recordsCtrl', function ($scope, $location) {});
+    .controller('recordsCtrl', function ($scope, $location) {
+        $scope.userrecords = [];
+        $scope.highestscore;
+        db.transaction(function (tx) {
+            tx.executeSql('SELECT `username`,`right_answers`  ,`not_attempted` ,`total_question` FROM `USERS`,`RECORDS` WHERE `USERS`.`user_id`=`RECORDS`.`user_id` AND `RECORDS`.user_id=' + $.jStorage.get("user").user_id, [], function (tx, results) {
+                for (var i = 0; i < results.rows.length; i++) {
+                    $scope.userrecords.push(results.rows.item(i));
+                };
+            }, null)
+            tx.executeSql('SELECT `username`,MAX(`right_answers`) as right_answers FROM `USERS`,`RECORDS` WHERE `USERS`.`user_id`=`RECORDS`.`user_id` ', [], function (tx, results) {
+                $scope.highestscore = results.rows.item(0);
+                console.log($scope.highestscore);
+            }, null)
+
+
+        });
+
+
+
+
+
+
+
+
+
+    });

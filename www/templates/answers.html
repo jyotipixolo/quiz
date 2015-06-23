@@ -1,5 +1,12 @@
 <ion-view view-title="Answers">
   <ion-content>
     <h1>Answers</h1>
+      <ion-list ng-if="checkanswersquestions.length>0">
+      <ion-item ng-repeat="values in checkanswersquestions">
+          {{values.que_id}}]{{values.questions}}<br>Right answer:-{{values.right_answer}}
+          
+          </ion-item>
+      </ion-list>
+   <a href="#app/home">    <button class="button button-block button-positive" ng-if="checkanswersquestions.length>0">Finish</button></a>
   </ion-content>
 </ion-view>

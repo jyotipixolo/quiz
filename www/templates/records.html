@@ -1,5 +1,22 @@
 <ion-view view-title="Records">
   <ion-content>
     <h1>Records</h1>
+      Highest Score:-<br>
+      {{highestscore.username}} {{highestscore.right_answers}}
+      <table>
+      <tr>
+          <th>Name</th>
+          <th>Right</th>
+          <th>Not Attempted</th>
+          <th>Total</th>
+          </tr>
+          <tr ng-repeat="records in userrecords">
+          <td>{{records.username}}</td>
+          <td>{{records.right_answers}}</td>
+              <td>{{records.not_attempted}}</td>
+              <td>{{records.total_question}}</td>
+          </tr>
+      </table>
+     <!--<a href="#app/home"> <button class="button button-block button-positive">Finish</button></a>-->
   </ion-content>
 </ion-view>

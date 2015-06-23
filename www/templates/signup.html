@@ -1,36 +1,59 @@
 <ion-view view-title="Sign-Up">
     <ion-content>
-        <h1>Sign-up</h1>
-        <div>
-            <input type="text" placeholder="Name" ng-model="user.name" class="inputfield">
-            <div ng-if="userexist.length>0">
-                <br>{{userexist}}</div>
-            </br>
-            <input type="radio" ng-model="user.gender" value="Female" checked>Female
-            <input type="radio" ng-model="user.gender" value="Male" checked>Male
+        <br>
+        <div class="list">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Name</span>
+                <input type="text" placeholder="Name" ng-model="user.name">
+                <div ng-if="userexist.length>0">
+                    <br>{{userexist}}</div>
+            </label>
+
+            <label class="item item-radio">
+                <input type="radio" ng-model="user.gender" value="Female">
+                <div class="item-content">Female</div><i class="radio-icon ion-checkmark"></i>
+            </label>
+            <label class="item item-radio">
+                <input type="radio" ng-model="user.gender" value="Male">
+                <div class="item-content">Male</div><i class="radio-icon ion-checkmark"></i>
+            </label>
             <div ng-if="genderempty.length>0">
                 <br>{{genderempty}}</div>
-            <br>
-            <br>
-            <input type="email" placeholder="EmailId" ng-model="user.emailid" class="inputfield">
-            <div ng-if="emailidempty.length>0">
-                <br>{{emailidempty}}</div>
-            <br>
-            <input type="password" placeholder="Password" ng-model="user.password" class="inputfield">
-            <div ng-if="passwordempty.length>0">
-                <br>{{passwordempty}}</div>
-            <br>
-            <select ng-model="user.question">
-                <option ng-repeat="j in secretquestions">{{j.questions}}</select>
+
+            <label class="item item-input item-floating-label">
+                <span class="input-label">EmailId</span>
+                <input type="email" placeholder="EmailId" ng-model="user.emailid">
+                <div ng-if="emailidempty.length>0">
+                    <br>{{emailidempty}}</div>
+            </label>
+
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Password</span>
+                <input type="password" placeholder="Password" ng-model="user.password">
+                <div ng-if="passwordempty.length>0">
+                    <br>{{passwordempty}}</div>
+            </label>
+
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Secret Questions
+                </div>
+                <select ng-model="user.question">
+                    <option ng-repeat="j in secretquestions">{{j.questions}}</select>
+            </label>
             <div ng-if="questionempty.length>0">
                 <br>{{questionempty}}</div>
+
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Answer</span>
+                <input type="text" placeholder="Answer" ng-model="user.answer">
+                <div ng-if="answerempty.length>0">
+                    <br>{{answerempty}}</div>
+            </label>
             <br>
-            <br>
-            <input type="text" placeholder="Answer" ng-model="user.answer" class="inputfield">
-            <div ng-if="answerempty.length>0">
-                <br>{{answerempty}}</div>
-            <br>
-            <button ng-click="signin()" class="button button-block button-positive">Sign In</button>
+            <center>
+                <button ng-click="signin()" class="button button-large button-positive">Sign In</button>
+            </center>
 
         </div>
     </ion-content>

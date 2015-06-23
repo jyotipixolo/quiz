@@ -1,6 +1,7 @@
 {
     "jscodehints.detectedExclusions": [
         "C:/xampp/htdocs/gk-quiz/www/js/app.js",
-        "C:/xampp/htdocs/gk-quiz/www/js/mydatabase.js"
+        "C:/xampp/htdocs/gk-quiz/www/js/mydatabase.js",
+        "C:/xampp/htdocs/quiz/www/js/mydatabase.js"
     ]
 }

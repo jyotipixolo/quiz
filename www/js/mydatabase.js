@@ -15,7 +15,7 @@ db.transaction(function (tx) {
         //tx.executeSql('DROP TABLE SECRET_QUE');
 });
 db.transaction(function (tx) {
-    tx.executeSql('CREATE TABLE IF NOT EXISTS RECORDS(record_id integer PRIMARY KEY,user_id Integer,right_answers integer,wrong_answers integer,not_attempted integer,total_question integer)')
+    tx.executeSql('CREATE TABLE IF NOT EXISTS RECORDS(user_id Integer,right_answers integer,wrong_answers integer,not_attempted integer,total_question integer)')
         //tx.executeSql('DROP TABLE RECORDS');
 });
 // INSERTING RECORDS IN SECRET_QUE TABLE
@@ -53,28 +53,28 @@ db.transaction(function (tx) {
     tx.executeSql('insert into QUESTIONS values(5,"Lipulekh is a Himalayan pass between India and which two countries?", "Nepal and Bhutan","Bhutan and China", "China and Nepal", "Pakistan and China"," China and Nepal ")');
 });
 db.transaction(function (tx) {
-    tx.executeSql('insert into QUESTIONS values(6," As per World Bank, which country has highest investment commitment in 2014?", "India", "Peru", "Brazil", "Turkey"," Brazil ")');
+    tx.executeSql('insert into QUESTIONS values(6," As per World Bank, which country has highest investment commitment in 2014?", "India", "Peru", "Brazil", "Turkey","Brazil")');
 });
 db.transaction(function (tx) {
     tx.executeSql('insert into QUESTIONS values(7,"Dasaradhi Rangacharya, who passed away recently, was a famous writer of which language?", "Malayalam", "Kannada","Telugu", "Marathi", "Telugu" )');
 });
 db.transaction(function (tx) {
-    tx.executeSql('insert into QUESTIONS values(8,"Which space body has won the 2015 space pioneer award for science and engineering?", "NASA", "ISRO", "ESA", "RSA"," ISRO" )');
+    tx.executeSql('insert into QUESTIONS values(8,"Which space body has won the 2015 space pioneer award for science and engineering?", "NASA", "ISRO", "ESA", "RSA","ISRO" )');
 });
 db.transaction(function (tx) {
-    tx.executeSql('insert into QUESTIONS values(9,"Who is the chairman of the Council of Scientific and Industrial Research (CSIR)?", "President of India", "Vice-President of India ","Prime Minister", "Minister of Science & Technology","  Prime Minister" )');
+    tx.executeSql('insert into QUESTIONS values(9,"Who is the chairman of the Council of Scientific and Industrial Research (CSIR)?", "President of India", "Vice-President of India ","Prime Minister", "Minister of Science & Technology","Prime Minister" )');
 });
 db.transaction(function (tx) {
-    tx.executeSql('insert into QUESTIONS values(10,"Which country is the “Country of honour” at China’s South Asia Expo June 2016?", "India", "Pakistan", "Taiwan", "Sri Lanka"," India" )');
+    tx.executeSql('insert into QUESTIONS values(10,"Which country is the “Country of honour” at China’s South Asia Expo June 2016?", "India", "Pakistan", "Taiwan", "Sri Lanka","India" )');
 });
 db.transaction(function (tx) {
     tx.executeSql('insert into QUESTIONS values(11, "The ONE Campaign is a non profit organisation that fights extreme poverty particularly in which region?", "Asia", "South America", "Africa", "Europe","Africa" )');
 });
 db.transaction(function (tx) {
-    tx.executeSql('insert into QUESTIONS values(12,"Who has won the Baileys Women’s Prize for Fiction 2015?", "Ali Smith", "Rachel Cusk", "Anne Tyler","Sarah Waters ","Ali Smith" )');
+    tx.executeSql('insert into QUESTIONS values(12,"Who has won the Baileys Women’s Prize for Fiction 2015?", "Ali Smith", "Rachel Cusk", "Anne Tyler","Sarah Waters","Ali Smith" )');
 });
 db.transaction(function (tx) {
-    tx.executeSql('insert into QUESTIONS values(13,"Which of the following has been named World’s most valuable football brand?", "Manchester United", "Bayern Munich", "Manchester City", "F C Barcelona ","Manchester United" )');
+    tx.executeSql('insert into QUESTIONS values(13,"Which of the following has been named World’s most valuable football brand?", "Manchester United", "Bayern Munich", "Manchester City", "F C Barcelona","Manchester United" )');
 });
 db.transaction(function (tx) {
     tx.executeSql('insert into QUESTIONS values(14,"Who has been named India’s special envoy for counter-terrorism and extremism?", "Ravicharan Reddy", "Syed Asif Ibrahim", "Mohamud Ashim Khan", "Bhakta Srivatsav","Syed Asif Ibrahim" )');
@@ -176,7 +176,7 @@ db.transaction(function (tx) {
     tx.executeSql('insert into QUESTIONS values(46,"E-Samiksha is an online project monitoring system launched by ____? ","Indian Railways", "NHAI", "RBI", "FIPB", "Indian Railways" )');
 });
 db.transaction(function (tx) {
-    tx.executeSql('insert into QUESTIONS values(47, "In which country a boycott Andaman and Nicobar Island campaign was launched?" ,"India ","Britain","Switzerland" ,"Russia ","Britain ")');
+    tx.executeSql('insert into QUESTIONS values(47, "In which country a boycott Andaman and Nicobar Island campaign was launched?" ,"India ","Britain","Switzerland" ,"Russia ","Britain")');
 });
 db.transaction(function (tx) {
     tx.executeSql('insert into QUESTIONS values(48,"The NTCA has recently declared which two national parks as tiger reserves?", "Kudremukh and Rajaji", "Ratapani and Sunabeda", "Guru Ghasidas and Rajaji", "Rajaji and Sunabeda ","Kudremukh and Rajaji" )');

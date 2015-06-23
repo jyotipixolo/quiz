@@ -1,5 +1,13 @@
 <ion-view view-title="Result">
-  <ion-content>
-    
-  </ion-content>
+    <ion-content>
+        {{userdata.username}}, you got
+        <br> RIGHT:-{{right}}
+        <br>WRONG:-{{wrong}}
+        <br>NOT ATTEMPTED:-{{notattempted}}
+        <br>
+        
+      <a href="#app/answers">  <button class="button button-block button-positive" >Check Answers</button></a>  <br>
+        <a href="#app/questionare" > <button class="button button-block button-positive" >Take Test Again</button></a><br>
+      <a href="#app/home" > <button class="button button-block button-positive">Finish</button></a>
+    </ion-content>
 </ion-view>
