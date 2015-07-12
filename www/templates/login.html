@@ -9,13 +9,15 @@
                 <label class="item item-input">
                     <span class="input-label">Username</span>
                     <input type="text" ng-model="logindata.username">
+                    <br><span class="errormessage">{{usernotexist}}</span>
                 </label>
                 <label class="item item-input">
                     <span class="input-label">Password</span>
                     <input type="password" ng-model="logindata.password">
+                     <br><span class="errormessage">{{invalidpassword}}</span>
                 </label>
                 <label class="item">
-                    <button class="button button-block button-positive" type="submit">Log in</button>
+                   <center> <button class="button button-large button-positive" type="submit">Log in</button></center>
                 </label>
             </div>
         </form>

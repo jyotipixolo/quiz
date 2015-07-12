@@ -14,8 +14,10 @@
                 
             </ion-item>
         </ion-list>
-        <button class="button button-block button-positive" ng-click="changequestionset('next')" ng-if="nextbutton">Next</button> 
-        <button class="button button-block button-positive" ng-click="changequestionset('previous')" ng-if="previousbutton">Previous</button>
-         <button class="button button-block button-positive" ng-click="finishquiz()" ng-if="submitbutton">Submit</button>
+        <lable class="item">
+        <button class="button icon-right ion-chevron-right button-clear button-positive" ng-click="changequestionset('next')" ng-if="nextbutton" style="float:right"> Next</button> 
+        <button class="button icon-left ion-chevron-left button-clear button-positive" ng-click="changequestionset('previous')" ng-if="previousbutton">Previous</button>
+     <center><button class="button button-large button-positive" ng-click="finishquiz()" ng-if="submitbutton">Submit</button></center>
+        </lable>
     </ion-content>
 </ion-view>

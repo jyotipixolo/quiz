@@ -23,6 +23,7 @@ angular.module('controllers', [])
     .controller('loginCtrl', function ($scope, $timeout, $location) {
         $scope.logindata = {};
         loginsuccess = function (userinfo) {
+            $scope.usernotexist = "";
             if ($scope.logindata.password == userinfo.password) {
                 $.jStorage.set("user", userinfo);
                 $location.path('app/questionare');
@@ -45,7 +46,9 @@ angular.module('controllers', [])
                         };
                     }, null);
                 });
-            }
+            } else {
+                $scope.usernotexist = "Enter your username !";
+            };
         };
 
     })
@@ -127,9 +130,9 @@ angular.module('controllers', [])
         $scope.nextbutton = true;
         var check = 1;
         var next = 5;
-    var decrementnext ;
-    var decrementprevious;
-    var previous;
+        var decrementnext;
+        var decrementprevious;
+        var previous;
         db.transaction(function (tx) {
             tx.executeSql('SELECT * FROM `QUESTIONS`', [], function (tx, results) {
                 for (var j = 0; j < results.rows.length; j++) {
@@ -154,41 +157,41 @@ angular.module('controllers', [])
             $scope.previousbutton = true;
             $scope.questionparts = [];
             if (status == 'next') {
-                decrementprevious=true;
+                decrementprevious = true;
                 //cHANGING QUESTION CORRECTLY ON CLICK OF NEXT BUTTON
-                if(!decrementnext){
-                    
+                if (!decrementnext) {
+
                     for (next = next; $scope.questionparts.length < 5; next++) {
                         $scope.questionparts.push($scope.questions[next]);
                     };
-                }else{
-            
-                for (next = previous; $scope.questionparts.length < 5; next++) {
+                } else {
+
+                    for (next = previous; $scope.questionparts.length < 5; next++) {
                         $scope.questionparts.push($scope.questions[next]);
                     };
-                    decrementnext=false;
+                    decrementnext = false;
                 };
                 check += 1;
 
             } else if (status == 'previous') {
                 console.log(check);
-                if(check<3){
-                $scope.previousbutton=false;
+                if (check < 3) {
+                    $scope.previousbutton = false;
                 };
-               decrementnext=true;
-                if(!decrementprevious)
-                {
-                     next = next - 5;
-                for (previous = next; $scope.questionparts.length < 5; previous++) {
-                    $scope.questionparts.push($scope.questions[previous]);
+                decrementnext = true;
+                if (!decrementprevious) {
+                    next = next - 5;
+                    for (previous = next; $scope.questionparts.length < 5; previous++) {
+                        $scope.questionparts.push($scope.questions[previous]);
 
-                };}else{
-                 next = next - 10;
-                     for (previous = next; $scope.questionparts.length < 5; previous++) {
-                    $scope.questionparts.push($scope.questions[previous]);
-decrementprevious=false;
-                };
-                
+                    };
+                } else {
+                    next = next - 10;
+                    for (previous = next; $scope.questionparts.length < 5; previous++) {
+                        $scope.questionparts.push($scope.questions[previous]);
+                        decrementprevious = false;
+                    };
+
                 };
 
                 check -= 1;
@@ -241,8 +244,25 @@ decrementprevious=false;
             }
 
         };
+console.log($scope.right);
 
-        $scope.rightpercent = 3.6 * Math.round(($scope.right * 100) / 50);
+        $scope.rightpercent =  Math.round(($scope.right * 100) / 50);
+    console.log($scope.rightpercent);
+        $scope.wrongpercent = 100 - $scope.rightpercent;
+    $scope.progression=$scope.rightpercent;
+      /*  $scope.data = [
+            {
+                label: "Right",
+                value: $scope.rightpercent,
+                color: "red"
+            },
+            {
+                label: "two",
+                value: $scope.wrongpercent,
+                color: "#00ff00"
+            },
+    ];
+    $scope.options = {thickness: 50};*/
         //TAKING VALUES FROM JSTORAGE FOR RESULT PAGE
         $scope.userdata = $.jStorage.get("user");
         db.transaction(function (tx) {

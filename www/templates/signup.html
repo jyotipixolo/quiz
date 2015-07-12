@@ -8,7 +8,10 @@
                 <div ng-if="userexist.length>0">
                     <br>{{userexist}}</div>
             </label>
-
+            <label class="item item-input">
+                <span class="input-label">Gender</span>
+                
+            </label>
             <label class="item item-radio">
                 <input type="radio" ng-model="user.gender" value="Female">
                 <div class="item-content">Female</div><i class="radio-icon ion-checkmark"></i>
@@ -51,10 +54,11 @@
                     <br>{{answerempty}}</div>
             </label>
             <br>
+            <lable class="item">
             <center>
                 <button ng-click="signin()" class="button button-large button-positive">Sign In</button>
             </center>
-
+</lable>
         </div>
     </ion-content>
 </ion-view>

@@ -18,6 +18,7 @@ db.transaction(function (tx) {
     tx.executeSql('CREATE TABLE IF NOT EXISTS RECORDS(user_id Integer,right_answers integer,wrong_answers integer,not_attempted integer,total_question integer)')
         //tx.executeSql('DROP TABLE RECORDS');
 });
+
 // INSERTING RECORDS IN SECRET_QUE TABLE
 db.transaction(function (tx) {
     tx.executeSql('insert into SECRET_QUE values(1,"Which is your favourite movie")');
